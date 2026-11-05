@@ -136,6 +136,37 @@ function renderItemsList(items) {
     container.innerHTML = itemsHtml;
 }
 
+//ฟังก์ชันอัปเดตตัวเลือกใน Dropdown
+function updatePortfolioSelect() {
+    const select = document.getElementById("portfolioSelect");
+    if (!select) return;
+
+    if (portfolios.length === 0) {
+        select.innerHTML = '<option value="">-- ยังไม่มี Portfolio --</option>';
+        return;
+    }
+
+    select.innerHTML = portfolios
+        .map(
+            (p) =>
+                `<option value="${p.id}" ${p.id === currentPortfolioId ? "selected" : ""}>
+          ${p.displayName}
+        </option>`
+        )
+        .join("");
+}
+
+//เมื่อผู้ใช้เลือกเปลี่ยน Portfolio จาก Dropdown
+const portfolioSelect = document.getElementById("portfolioSelect");
+if (portfolioSelect) {
+    portfolioSelect.addEventListener("change", function (e) {
+        currentPortfolioId = e.target.value;
+        renderPortfolioView();
+    });
+}
+
+
+
 
 
 //ฟังก์ชันตรวจสอบ URL
@@ -193,8 +224,6 @@ portfolioForm.addEventListener("submit", function (event) {
     //ล้างกล่อง Error เมื่อผู้ใช้พิมพ์ถูกแล้ว
     displayErrors("portfolioErrors", []);
 
-    alert("✓ ข้อมูลถูกต้อง! บันทึก Portfolio สำเร็จ");
-
     const portfolioData = {
         id: "p_" + Date.now(),
         displayName: displayName,
@@ -203,6 +232,16 @@ portfolioForm.addEventListener("submit", function (event) {
         whatImCuriousAbout: whatImCuriousAbout,
         items: []
     };
+
+    //เพิ่มข้อมูลใหม่ลงใน State
+    portfolios.push(portfolioData);
+    currentPortfolioId = portfolioData.id;
+
+    //อัปเดต Dropdown และเรนเดอร์ขึ้นหน้าเว็บ
+    updatePortfolioSelect();
+    renderPortfolioView();
+
+    alert("✓ บันทึก Portfolio สำเร็จ");
 });
 
 
@@ -270,7 +309,12 @@ itemForm.addEventListener("submit", function (event) {
     //ล้างข้อความ Error เมื่อผู้ใช้กรอกข้อมูลถูกต้อง
     displayErrors("itemErrors", []);
 
-    alert("✓ ข้อมูลถูกต้อง! บันทึก Portfolio Item สำเร็จ");
+    //ตรวจสอบว่ามี Portfolio ปัจจุบันให้ผูกผลงานเข้าไปหรือไม่
+    const current = getCurrentPortfolio();
+    if (!current) {
+        alert("กรุณาสร้างหรือเลือก Portfolio ก่อนเพิ่มผลงาน");
+        return;
+    }
 
     //แปลงข้อความ Skills ที่คั่นด้วยจุลภาคให้กลายเป็น Array
     const skillsArray = skillsRaw
@@ -294,6 +338,14 @@ itemForm.addEventListener("submit", function (event) {
         },
         evidence: evidenceList
     };
+
+    //เพิ่มผลงานลงใน Portfolio ที่กำลังเปิดอยู่
+    current.items.push(itemData);
+
+    renderPortfolioView();
+
+    alert("✓ เพิ่มชิ้นงานลงใน Portfolio สำเร็จ!");
+    itemForm.reset(); //ล้างฟอร์ม
 });
 
 

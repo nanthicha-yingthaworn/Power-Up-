@@ -24,6 +24,8 @@ function displayErrors(containerId, messages) {
   }
 }
 
+
+//ตรงส่วนข้อมูลผู้ใช้ (Portfolio Form)
 const portfolioForm = document.getElementById("portfolioForm");
 
 portfolioForm.addEventListener("submit", function (event) {
@@ -49,12 +51,107 @@ portfolioForm.addEventListener("submit", function (event) {
   }
 
   //ล้างกล่อง Error เมื่อผู้ใช้พิมพ์ถูกแล้ว
-  displayErrors("portfolioErrors", []);
+ displayErrors("portfolioErrors", []);
 
-  console.log("✓ Portfolio Form ผ่านการ Validate แล้ว:", {
-    displayName,
-    whatIEnjoy,
-    whatIveTried,
-    whatImCuriousAbout
-  });
+  alert("✓ ข้อมูลถูกต้อง! บันทึก Portfolio สำเร็จ");
+
+  const portfolioData = {
+    id: "p_" + Date.now(),
+    displayName: displayName,
+    whatIEnjoy: whatIEnjoy,
+    whatIveTried: whatIveTried,
+    whatImCuriousAbout: whatImCuriousAbout,
+    items: []
+  };
+});
+
+
+//ตรงส่วนข้อมูลผลงาน (Item Form)
+const itemForm = document.getElementById("itemForm");
+
+itemForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const errors = [];
+
+  const title = document.getElementById("title").value.trim();
+  const type = document.getElementById("type").value.trim();
+  const date = document.getElementById("date").value.trim();
+  const role = document.getElementById("role").value.trim();
+  const description = document.getElementById("description").value.trim();
+  const skillsRaw = document.getElementById("skills").value.trim();
+
+  const whatIDid = document.getElementById("whatIDid").value.trim();
+  const whatILearned = document.getElementById("whatILearned").value.trim();
+  const challenge = document.getElementById("challenge").value.trim();
+  const nextStep = document.getElementById("nextStep").value.trim();
+
+  const evidenceRaw = document.getElementById("evidence").value.trim();
+
+  //ตรวจสอบฟิลด์พื้นฐาน
+  if (!title) errors.push("กรุณากรอก Title (ชื่อผลงาน)");
+  if (!type) errors.push("กรุณาเลือก Type (ประเภทของผลงาน)");
+  if (!date) {
+    errors.push("กรุณาระบุ Date (วันที่)");
+  } else if (isNaN(new Date(date).getTime())) {
+    errors.push("รูปแบบวันที่ไม่ถูกต้อง");
+  }
+  if (!role) errors.push("กรุณากรอก Role (บทบาท)");
+  if (!description) errors.push("กรุณากรอก Description (รายละเอียด)");
+  if (!skillsRaw) errors.push("กรุณาระบุ Skills อย่างน้อย 1 ทักษะ");
+
+  //ตรวจสอบ Reflection ครบทั้ง 4 ส่วน
+  if (!whatIDid) errors.push("กรุณากรอก Reflection: What I did");
+  if (!whatILearned) errors.push("กรุณากรอก Reflection: What I learned");
+  if (!challenge) errors.push("กรุณากรอก Reflection: Challenge");
+  if (!nextStep) errors.push("กรุณากรอก Reflection: Next step");
+
+  //ตรวจสอบ Evidence (ตัดตามบรรทัดและตรวจ URL)
+  const evidenceList = evidenceRaw
+    .split("\n")
+    .map((link) => link.trim())
+    .filter((link) => link.length > 0);
+
+  if (evidenceList.length === 0) {
+    errors.push("กรุณาระบุ Evidence (ลิงก์หลักฐาน) อย่างน้อย 1 รายการ");
+  } else {
+    const hasInvalidUrl = evidenceList.some((url) => !isValidUrl(url));
+    if (hasInvalidUrl) {
+      errors.push("Evidence URL ต้องขึ้นต้นด้วย http:// หรือ https://");
+    }
+  }
+
+  //ถ้ามี Error ให้แจ้งเตือนและหยุดทำงาน
+  if (errors.length > 0) {
+    displayErrors("itemErrors", errors);
+    return;
+  }
+
+  //ล้างข้อความ Error เมื่อผู้ใช้กรอกข้อมูลถูกต้อง
+  displayErrors("itemErrors", []);
+
+  alert("✓ ข้อมูลถูกต้อง! บันทึก Portfolio Item สำเร็จ");
+
+  //แปลงข้อความ Skills ที่คั่นด้วยจุลภาคให้กลายเป็น Array
+  const skillsArray = skillsRaw
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  const itemData = {
+    id: "item_" + Date.now(),
+    title: title,
+    type: type,
+    date: date,
+    role: role,
+    description: description,
+    skills: skillsArray,
+    reflection: {
+      whatIDid: whatIDid,
+      whatILearned: whatILearned,
+      challenge: challenge,
+      nextStep: nextStep
+    },
+    evidence: evidenceList
+  };
 });

@@ -1,3 +1,91 @@
+let portfolios = [];
+let currentPortfolioId = null;
+
+//ฟังก์ชันดึงข้อมูล Portfolio ปัจจุบันที่กำลังเลือกอยู่
+function getCurrentPortfolio() {
+  return portfolios.find((p) => p.id === currentPortfolioId) || null;
+}
+
+
+
+//เรนเดอร์ภาพรวมทั้งหมดลงใน #portfolioView
+function renderPortfolioView() {
+  const viewContainer = document.getElementById("portfolioView");
+  if (!viewContainer) return;
+
+  const current = getCurrentPortfolio();
+
+  //กรณีที่ 1: ยังไม่มีการเลือกหรือสร้าง Portfolio ให้แสดง Empty State
+  if (!current) {
+    viewContainer.innerHTML = `
+      <div class="box empty text-center">
+        <div class="big-emoji">📂</div>
+        <h3 class="mt-3">ยังไม่มีข้อมูล Portfolio</h3>
+        <p class="text-muted">กรุณาสร้าง Portfolio ใหม่เพื่อเริ่มต้นใช้งาน</p>
+      </div>
+    `;
+    return;
+  }
+
+  //ทำรูป Avatar
+  const initial = current.displayName ? current.displayName.charAt(0).toUpperCase() : "?";
+
+  //กรณีที่ 2: มี Portfolio แล้ว ให้เรนเดอร์ Profile Header
+  let html = `
+    <div class="box profile">
+      <div class="avatar">${initial}</div>
+      <h2>${current.displayName}</h2>
+      <div class="row g-2 mt-3 text-start">
+        <div class="col-md-4">
+          <div class="about">
+            <b>What I Enjoy</b>
+            <p>${current.whatIEnjoy}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="about">
+            <b>What I've Tried</b>
+            <p>${current.whatIveTried}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="about">
+            <b>What I'm Curious About</b>
+            <p>${current.whatImCuriousAbout}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="items-title d-flex justify-content-between align-items-center">
+      <span>รายการผลงาน (${current.items.length})</span>
+    </div>
+    <div id="itemsContainer"></div>
+  `;
+
+  viewContainer.innerHTML = html;
+
+  //เรนเดอร์การ์ดผลงาน
+  renderItemsList(current.items);
+}
+
+//ฟังก์ชันเรนเดอร์รายการ Item
+function renderItemsList(items) {
+  const container = document.getElementById("itemsContainer");
+  if (!container) return;
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="box text-center py-4 text-muted">
+        <p class="mb-0">ยังไม่มีชิ้นงานใน Portfolio นี้ เพิ่มผลงานได้จากฟอร์มข้อ 3</p>
+      </div>
+    `;
+    return;
+  }
+}
+
+
+
 //ฟังก์ชันตรวจสอบ URL
 function isValidUrl(urlString) {
   try {
@@ -155,3 +243,6 @@ itemForm.addEventListener("submit", function (event) {
     evidence: evidenceList
   };
 });
+
+
+renderPortfolioView();

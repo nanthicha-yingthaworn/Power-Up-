@@ -376,6 +376,29 @@ itemForm.addEventListener("submit", function (event) {
     itemForm.reset(); //ล้างฟอร์ม
 });
 
+//ปุ่ม + Add: ล้างฟอร์มสร้าง Portfolio แล้วพาผู้ใช้ไปกรอก
+document.getElementById("btnNew").addEventListener("click", function () {
+    portfolioForm.reset();
+    displayErrors("portfolioErrors", []); //ล้างข้อความ Error เก่า
+    portfolioForm.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("displayName").focus();
+});
+
+//ปุ่มถังขยะ: ลบ Portfolio ที่กำลังเลือกอยู่
+document.getElementById("btnDelete").addEventListener("click", function () {
+    const current = getCurrentPortfolio();
+    if (!current) return; //ยังไม่มี Portfolio ให้ลบ
+    if (!confirm('ลบ Portfolio "' + current.displayName + '" ใช่ไหม?')) return;
+
+    //เอา Portfolio นี้ออกจาก State แล้วเลือกอันแรกที่เหลือ (ถ้าไม่เหลือเป็น null)
+    portfolios = portfolios.filter((p) => p.id !== current.id);
+    currentPortfolioId = portfolios[0] ? portfolios[0].id : null;
+
+    saveData();
+    updatePortfolioSelect();
+    renderPortfolioView();
+});
+
 loadData();
 updatePortfolioSelect();
 renderPortfolioView();

@@ -5,8 +5,33 @@ let currentPortfolioId = null;
 function getCurrentPortfolio() {
     return portfolios.find((p) => p.id === currentPortfolioId) || null;
 }
+const STORAGE_KEY = "powerup_portfolios";
+const CURRENT_KEY = "powerup_currentPortfolioId";
 
+//บันทึกข้อมูลลง localStorage
+function saveData() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolios));
+        localStorage.setItem(CURRENT_KEY, currentPortfolioId || "");
+    } catch (err) {
+        alert("บันทึกข้อมูลไม่สำเร็จ: " + err.message);
+    }
+}
 
+//โหลดข้อมูลจาก localStorage ตอนเปิดหน้าเว็บ
+function loadData() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        portfolios = Array.isArray(saved) ? saved : [];
+    } catch (err) {
+        portfolios = [];
+    }
+
+    const savedId = localStorage.getItem(CURRENT_KEY);
+    currentPortfolioId = portfolios.some((p) => p.id === savedId)
+        ? savedId
+        : (portfolios[0] ? portfolios[0].id : null);
+}
 
 //เรนเดอร์ภาพรวมทั้งหมดลงใน #portfolioView
 function renderPortfolioView() {

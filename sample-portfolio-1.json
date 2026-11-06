@@ -1,0 +1,50 @@
+{
+  "id": "p_1793966053952",
+  "displayName": "A",
+  "whatIEnjoy": "ทำเว็บ",
+  "whatIveTried": "ทำเว็ป A2",
+  "whatImCuriousAbout": "เรียนเพิ่ม",
+  "items": [
+    {
+      "id": "item_1793966202062",
+      "title": "A2",
+      "type": "Course Assignment",
+      "date": "2026-11-01",
+      "role": "Developer",
+      "description": "ทำเว็บ A2",
+      "skills": [
+        "HTML",
+        "CSS"
+      ],
+      "reflection": {
+        "whatIDid": "เขียนโค้ด",
+        "whatILearned": "การทำเว็บ",
+        "challenge": "ปรับปรุงเว็บ",
+        "nextStep": "จัดหน้าเว็บและปรับปรุง"
+      },
+      "evidence": [
+        "https://github.com/SorrawitJitnaknan/A2_6609613382"
+      ]
+    },
+    {
+      "id": "item_1793966285886",
+      "title": "แก้ A2",
+      "type": "Course Assignment",
+      "date": "2026-11-02",
+      "role": "Developer",
+      "description": "แก้ปัญหา",
+      "skills": [
+        "HTML"
+      ],
+      "reflection": {
+        "whatIDid": "แก้บั๊ก",
+        "whatILearned": "แก้ปัญหาเว็บ",
+        "challenge": "หาจุดผิด",
+        "nextStep": "สรุปงาน"
+      },
+      "evidence": [
+        "https://github.com/SorrawitJitnaknan/A2_6609613382"
+      ]
+    }
+  ]
+}

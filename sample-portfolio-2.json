@@ -1,0 +1,29 @@
+{
+  "id": "p_1793966343534",
+  "displayName": "B",
+  "whatIEnjoy": "แต่งเว็บ",
+  "whatIveTried": "ทำ power",
+  "whatImCuriousAbout": "อยากเรียนเพิ่ม",
+  "items": [
+    {
+      "id": "item_1793966443214",
+      "title": "Power Up",
+      "type": "Course Assignment",
+      "date": "2026-11-05",
+      "role": "Developer",
+      "description": "ทำเว็บพอร์ต",
+      "skills": [
+        "HTML"
+      ],
+      "reflection": {
+        "whatIDid": "เซปข้อมูล",
+        "whatILearned": "การเก็บข้อมูล",
+        "challenge": "จัดหน้าจอ",
+        "nextStep": "เพิ่มฟีเจอร์"
+      },
+      "evidence": [
+        "https://github.com/nanthicha-yingthaworn/Power-Up-"
+      ]
+    }
+  ]
+}

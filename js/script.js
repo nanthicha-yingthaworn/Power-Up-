@@ -186,6 +186,7 @@ const portfolioSelect = document.getElementById("portfolioSelect");
 if (portfolioSelect) {
     portfolioSelect.addEventListener("change", function (e) {
         currentPortfolioId = e.target.value;
+        saveData();
         renderPortfolioView();
     });
 }
@@ -261,6 +262,7 @@ portfolioForm.addEventListener("submit", function (event) {
     //เพิ่มข้อมูลใหม่ลงใน State
     portfolios.push(portfolioData);
     currentPortfolioId = portfolioData.id;
+    saveData();
 
     //อัปเดต Dropdown และเรนเดอร์ขึ้นหน้าเว็บ
     updatePortfolioSelect();
@@ -366,6 +368,7 @@ itemForm.addEventListener("submit", function (event) {
 
     //เพิ่มผลงานลงใน Portfolio ที่กำลังเปิดอยู่
     current.items.push(itemData);
+    saveData();
 
     renderPortfolioView();
 
@@ -373,5 +376,6 @@ itemForm.addEventListener("submit", function (event) {
     itemForm.reset(); //ล้างฟอร์ม
 });
 
-
+loadData();
+updatePortfolioSelect();
 renderPortfolioView();

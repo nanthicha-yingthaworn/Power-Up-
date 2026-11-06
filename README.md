@@ -23,7 +23,9 @@ Web App สำหรับสร้าง Personal Learning Portfolio และ�
    Power-Up-/
    ├── index.html
    ├── CSS/
+       ├── style.css
    ├── js/
+       ├── script.js
    ├── sample-portfolio-1.json
    ├── sample-portfolio-2.json
    └── README.md

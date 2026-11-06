@@ -20,11 +20,13 @@ Web App สำหรับสร้าง Personal Learning Portfolio และ�
 ## โครงสร้าง Project
 
 ```
-Power-Up-/
-├── index.html
-├── CSS/
-├── js/
-└── README.md
+   Power-Up-/
+   ├── index.html
+   ├── CSS/
+   ├── js/
+   ├── sample-portfolio-1.json
+   ├── sample-portfolio-2.json
+   └── README.md
 ```
 
 ## วิธีเปิดและทดลองเว็บไซต์
@@ -44,26 +46,10 @@ Power-Up-/
 
 ## ตัวอย่างโครงสร้างข้อมูล (JSON)
 
-Portfolio Item 1 รายการมีโครงสร้างตาม `portfolio-example.json` ของรายวิชา
+   ## ข้อมูลตัวอย่าง
 
-```json
-{
-  "id": "item001",
-  "title": "My First Website",
-  "type": "Course Assignment",
-  "date": "2026-10-18",
-  "role": "Developer",
-  "description": "Created a personal website",
-  "skills": ["HTML", "CSS"],
-  "reflection": {
-    "whatIDid": "Built the website",
-    "whatILearned": "Responsive design",
-    "challenge": "Mobile layout",
-    "nextStep": "Improve the design"
-  },
-  "evidence": ["https://example.com/my-work"]
-}
-```
+   ดูตัวอย่างข้อมูล Portfolio ได้ที่ `sample-portfolio-1.json` และ `sample-portfolio-2.json`
+   (โครงสร้างตาม `portfolio-example.json` ของรายวิชา)
 
 ## ข้อจำกัดของ Checkpoint นี้
 

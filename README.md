@@ -48,10 +48,7 @@ Web App สำหรับสร้าง Personal Learning Portfolio และ�
 
 ## ตัวอย่างโครงสร้างข้อมูล (JSON)
 
-   ## ข้อมูลตัวอย่าง
-
-   ดูตัวอย่างข้อมูล Portfolio ได้ที่ `sample-portfolio-1.json` และ `sample-portfolio-2.json`
-   (โครงสร้างตาม `portfolio-example.json` ของรายวิชา)
+ดูตัวอย่างข้อมูล Portfolio ได้ที่ `sample-portfolio-1.json` และ `sample-portfolio-2.json`
 
 ## ข้อจำกัดของ Checkpoint นี้
 

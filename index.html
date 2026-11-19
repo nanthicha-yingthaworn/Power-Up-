@@ -5,130 +5,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Up! Portfolio</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
 
+    <!-- ========== Header & Navigation ========== -->
     <header class="hero">
-        <div class="container">
-            <h1> Power Up!</h1>
-            <p>Personal Learning Portfolio — เก็บสิ่งที่ได้เรียนรู้ของเรา</p>
+        <div class="container hero-content">
+
+            <!-- Website Title -->
+            <div class="hero-text">
+                <h1>Power Up!</h1>
+                <p>Personal Learning Portfolio</p>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav nav-pills hero-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#portfolioForm">
+                        Portfolio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#festival">
+                        Challenge 
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </header>
 
+    <!-- ========== Main Content ========== -->
     <main class="container my-4">
 
-        <div class="box">
+        <!-- ========== 1. เลือก Portfolio ========== -->
+        <div class="box" id="create">
             <h2>1. เลือก Portfolio</h2>
 
             <div class="d-flex flex-wrap gap-2 align-items-center">
-                <select id="portfolioSelect" class="form-select select-portfolio"></select>
+
+                <select id="portfolioSelect" class="form-select select-portfolio">
+                </select>
 
                 <div class="ms-auto d-flex gap-2">
-                    <button id="btnNew" class="btn btn-success">+ Add</button>
+                    <button id="btnNew" class="btn btn-success">
+                        + Add
+                    </button>
+
                     <button id="btnDelete" class="btn btn-danger">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
 
-
             </div>
         </div>
 
+        <!-- ========== 2-3. Portfolio Forms & View ========== -->
         <div class="row g-4">
 
             <div class="col-lg-5">
 
+                <!-- Create Portfolio -->
                 <form id="portfolioForm" class="box" novalidate>
                     <h2 id="portfolioFormTitle">2. สร้าง Portfolio</h2>
+
                     <div id="portfolioErrors" class="alert alert-danger d-none"></div>
 
                     <label class="form-label" for="displayName">ชื่อที่ต้องการแสดง *</label>
-                    <input class="form-control mb-3" id="displayName" placeholder="ชื่อจริงหรือชื่อเล่น">
-
+                    <input class="form-control mb-3" id="displayName" name="displayName"
+                        placeholder="ชื่อจริงหรือชื่อเล่น">
 
                     <label class="form-label" for="whatIEnjoy">What I Enjoy (ชอบทำอะไร) *</label>
-                    <textarea class="form-control mb-3" id="whatIEnjoy" rows="2"></textarea>
+                    <textarea class="form-control mb-3" id="whatIEnjoy" name="whatIEnjoy" rows="2"></textarea>
 
                     <label class="form-label" for="whatIveTried">What I've Tried (ลองทำอะไรมาแล้ว) *</label>
-                    <textarea class="form-control mb-3" id="whatIveTried" rows="2"></textarea>
+                    <textarea class="form-control mb-3" id="whatIveTried" name="whatIveTried" rows="2"></textarea>
 
-                    <label class="form-label" for="whatImCuriousAbout">What I'm Curious About (อยากรู้อะไรเพิ่ม)
-                        *</label>
-                    <textarea class="form-control mb-3" id="whatImCuriousAbout" rows="2"></textarea>
+                    <label class="form-label" for="whatImCuriousAbout">
+                        What I'm Curious About (อยากรู้อะไรเพิ่ม) *
+                    </label>
+                    <textarea class="form-control mb-3" id="whatImCuriousAbout"
+                        name="whatImCuriousAbout" rows="2"></textarea>
 
-                    <button type="submit" class="btn btn-primary w-100">บันทึก Portfolio</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        บันทึก Portfolio
+                    </button>
                 </form>
 
+                <!-- Add Portfolio Item -->
                 <form id="itemForm" class="box" novalidate>
                     <h2>3. เพิ่ม Portfolio Item</h2>
+
                     <div id="itemErrors" class="alert alert-danger d-none"></div>
 
                     <label class="form-label" for="title">Title *</label>
-                    <input class="form-control mb-3" id="title" placeholder="เช่น My First Website">
+                    <input class="form-control mb-3" id="title" name="title"
+                        placeholder="เช่น My First Website">
 
                     <div class="row">
                         <div class="col-6">
                             <label class="form-label" for="type">Type *</label>
-                            <select class="form-select mb-3" id="type">
+                            <select class="form-select mb-3" id="type" name="type">
                                 <option value="">-- เลือก --</option>
                                 <option>Course Assignment</option>
                                 <option>Project</option>
                                 <option>Activity</option>
                                 <option>Competition</option>
                                 <option>Self-learning</option>
+                                <option>Challenge</option>
                                 <option>Other</option>
                             </select>
                         </div>
+
                         <div class="col-6">
                             <label class="form-label" for="date">Date *</label>
-                            <input class="form-control mb-3" id="date" type="date">
+                            <input class="form-control mb-3" id="date" name="date" type="date">
                         </div>
                     </div>
 
                     <label class="form-label" for="role">Role *</label>
-                    <input class="form-control mb-3" id="role" placeholder="เช่น Developer">
+                    <input class="form-control mb-3" id="role" name="role"
+                        placeholder="เช่น Developer">
 
                     <label class="form-label" for="description">Description *</label>
-                    <textarea class="form-control mb-3" id="description" rows="2"></textarea>
+                    <textarea class="form-control mb-3" id="description" name="description" rows="2"></textarea>
 
-                    <label class="form-label" for="skills">Skills * <small class="text-muted">(คั่นด้วย
-                            ,)</small></label>
-                    <input class="form-control mb-3" id="skills" placeholder="HTML, CSS">
+                    <label class="form-label" for="skills">
+                        Skills * <small class="text-muted">(คั่นด้วย ,)</small>
+                    </label>
+                    <input class="form-control mb-3" id="skills" name="skills"
+                        placeholder="HTML, CSS">
 
                     <p class="sub-title">Reflection</p>
+
                     <label class="form-label" for="whatIDid">What I did *</label>
-                    <textarea class="form-control mb-2" id="whatIDid" rows="2"></textarea>
+                    <textarea class="form-control mb-2" id="whatIDid" name="whatIDid" rows="2"></textarea>
+
                     <label class="form-label" for="whatILearned">What I learned *</label>
-                    <textarea class="form-control mb-2" id="whatILearned" rows="2"></textarea>
+                    <textarea class="form-control mb-2" id="whatILearned" name="whatILearned" rows="2"></textarea>
+
                     <label class="form-label" for="challenge">Challenge *</label>
-                    <textarea class="form-control mb-2" id="challenge" rows="2"></textarea>
+                    <textarea class="form-control mb-2" id="challenge" name="challenge" rows="2"></textarea>
+
                     <label class="form-label" for="nextStep">Next step *</label>
-                    <textarea class="form-control mb-3" id="nextStep" rows="2"></textarea>
+                    <textarea class="form-control mb-3" id="nextStep" name="nextStep" rows="2"></textarea>
 
-                    <label class="form-label" for="evidence">Evidence * <small class="text-muted">(1 บรรทัด = 1
-                            ลิงก์)</small></label>
-                    <textarea class="form-control mb-3" id="evidence" rows="2"
-                        placeholder="https://github.com/..."></textarea>
+                    <label class="form-label" for="evidence">
+                        Evidence * <small class="text-muted">(1 บรรทัด = 1 ลิงก์)</small>
+                    </label>
+                    <textarea class="form-control mb-3" id="evidence" name="evidence"
+                        rows="2" placeholder="https://github.com/..."></textarea>
 
-                    <button type="submit" class="btn btn-primary w-100">บันทึก Item</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        บันทึก Item
+                    </button>
+
+                    <button type="button" id="btnMakeJson"
+                        class="btn btn-outline-primary w-100 mt-2">
+                         สร้าง JSON ให้ผู้ทำกิจกรรม 
+                    </button>
+
+                    <small class="text-muted d-block mt-1">
+                        ปุ่มนี้ไม่บันทึกลง Portfolio ของเรา — ใช้ตอนเป็นเจ้าของบูธ
+                    </small>
                 </form>
+
             </div>
 
+            <!-- Portfolio Preview -->
             <div class="col-lg-7">
                 <div id="portfolioView"></div>
             </div>
+
+        </div>
+
+        <!-- ========== 4. Challenge Festival ========== -->
+        <section class="box mt-4" id="festival">
+            <h2>4. Challenge Festival </h2>
+
+            <p class="text-muted">
+                ทำ Challenge ของเพื่อนต่างกลุ่ม → ได้ Portfolio Item JSON
+                → นำมา Import เข้า Portfolio ของตัวเอง
+            </p>
+
+            <div class="row g-4">
+
+                <!-- Tester33333333333333333333333333333333333333333333333333333333333333333333333333333 -->
+                <div class="col-lg-6">
+                    <div class="festival-panel">
+                        <h3 class="festival-title">
+                             Tester — Import Portfolio Item JSON
+                        </h3>
+
+                        <p class="small mb-2">
+                            จะ Import เข้า Portfolio: <b id="importTarget">-</b>
+                        </p>
+
+                        <div id="importErrors" class="alert alert-danger d-none"></div>
+
+                        <textarea class="form-control json-box mb-2"
+                            id="importJson" rows="9"
+                            placeholder='วาง JSON ที่ได้จากบูธเพื่อนที่นี่ เช่น { "title": "...", "type": "Challenge", ... }'></textarea>
+
+                        <button type="button" id="btnImport"
+                            class="btn btn-primary w-100">
+                             Import และบันทึกลง Server
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== 5. Export Portfolio ========== -->
+        <section class="box" id="exportSection">
+            <h2>5. Export my-portfolio.json</h2>
+
+            <p class="text-muted mb-2">
+                Export Portfolio ที่เลือกอยู่ เพื่อส่งเป็นหลักฐานรายบุคคล
+                (ต้องมี Item จาก Challenge ของเพื่อนอย่างน้อย 1 รายการ)
+            </p>
+
+            <div id="exportStatus" class="small mb-2"></div>
+
+            <div class="d-flex flex-wrap gap-2 mb-2">
+                <button type="button" id="btnShowExport"
+                    class="btn btn-outline-primary">
+                    แสดง JSON
+                </button>
+
+                <a id="downloadLink" class="btn btn-primary" href="#">
+                    ⬇ ดาวน์โหลด my-portfolio.json
+                </a>
+            </div>
+
+            <textarea class="form-control json-box d-none"
+                id="exportJson" rows="10" readonly></textarea>
+        </section>
+
     </main>
 
-    <footer class="text-center text-muted py-4">© 2026 CS100 Power Up! · Checkpoint <br>
+    <!-- ========== Footer ========== -->
+    <footer id="contact" class="text-center text-muted py-4">
+        © 2026 CS100 Power Up! · Final System
+        <br>
+        Personal Learning Portfolio | Learning, Creating & Growing.
+    </footer>
 
-        Personal Learning Portfolio | Learning, Creating & Growing.</footer>
-
+    <!-- JavaScript -->
     <script src="js/script.js"></script>
-</body>
 
+</body>
 </html>

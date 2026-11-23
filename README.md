@@ -43,18 +43,13 @@ Power-Up-/
 
 ## วิธีติดตั้งบน AWS EC2 (Ubuntu)
 
-1. สร้าง EC2 (Ubuntu) และตั้ง **Security Group เปิดเฉพาะ SSH 22 และ HTTP 80**
-   เก็บไฟล์ `.pem` ไว้ในเครื่องตัวเอง ห้ามขึ้น GitHub
+1. สร้าง EC2 (Ubuntu) และตั้ง **Security Group เปิดเฉพาะ HTTP 80 (ทุกที่) และ SSH 22 (จำกัดเฉพาะ IP ของผู้ดูแลระบบ)**
 2. ติดตั้งโปรแกรม
    ```bash
    sudo apt update
    sudo apt install apache2 php libapache2-mod-php git -y
    ```
-3. สร้างที่เก็บข้อมูล **นอก** โฟลเดอร์เว็บ
-   ```bash
-   sudo mkdir -p /var/www/data
-   sudo chown www-data:www-data /var/www/data
-   ```
+3. **Security Group:** เปิดเฉพาะ Port 80 (HTTP, 0.0.0.0/0) และ Port 22 (SSH, จำกัดเฉพาะ IP ผู้ดูแลระบบ)
 4. นำโค้ดขึ้น
    ```bash
    git clone https://github.com/nanthicha-yingthaworn/Power-Up-.git

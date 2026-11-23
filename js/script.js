@@ -458,6 +458,7 @@ document.getElementById("btnDelete").addEventListener("click", async function ()
 // แสดง Challenge ของกลุ่มเรา: ชื่อ, คำอธิบาย, ขั้นตอน, คำแนะนำหลักฐาน
 function showChallenges() {
     const list = document.getElementById("challengeList");
+    if (list === null) return;
     list.textContent = "";
 
     for (let i = 0; i < ourChallenges.length; i++) {
@@ -527,16 +528,22 @@ document.getElementById("btnMakeJson").addEventListener("click", function () {
         evidence: item.evidence
     };
 
-    document.getElementById("hostJson").value = JSON.stringify(itemJson, null, 2);
-    document.getElementById("hostOutput").classList.remove("d-none");
-    document.getElementById("hostOutput").scrollIntoView({ behavior: "smooth" });
-    itemForm.reset();
+     let hostJson = document.getElementById("hostJson");
+    if (hostJson === null) {
+        hostJson = document.createElement("textarea");
+        hostJson.id = "hostJson";
+        hostJson.className = "form-control json-box mt-2";
+        hostJson.rows = 9;
+        hostJson.readOnly = true;
+        itemForm.appendChild(hostJson);
+    }
+
+    itemForm.reset();       // ล้างฟอร์มก่อน (ถ้าใส่ JSON ก่อน reset กล่องนี้จะถูกล้างไปด้วย เพราะอยู่ในฟอร์ม)
+    hostJson.value = JSON.stringify(itemJson, null, 2);
+    hostJson.scrollIntoView({ behavior: "smooth" });
+    hostJson.select();      // เลือกข้อความไว้ให้แล้ว กด Ctrl+C เพื่อคัดลอก
 });
 
-// เลือกข้อความทั้งหมดในกล่อง แล้วให้ผู้ใช้กด Ctrl+C เอง
-document.getElementById("btnCopyHost").addEventListener("click", function () {
-    document.getElementById("hostJson").select();
-});
 
 
 // =============================================

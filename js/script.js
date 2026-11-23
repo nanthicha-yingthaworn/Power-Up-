@@ -528,7 +528,7 @@ document.getElementById("btnMakeJson").addEventListener("click", function () {
         evidence: item.evidence
     };
 
-     let hostJson = document.getElementById("hostJson");
+    let hostJson = document.getElementById("hostJson");
     if (hostJson === null) {
         hostJson = document.createElement("textarea");
         hostJson.id = "hostJson";
@@ -549,7 +549,15 @@ document.getElementById("btnMakeJson").addEventListener("click", function () {
 // =============================================
 // 7. Challenge Festival — Tester (Import ด้วย Copy/Paste)
 // =============================================
+function isSameItem(a, b) {
+    return String(a.title).trim() === String(b.title).trim()
+        && String(a.type).trim() === String(b.type).trim()
+        && String(a.date).trim() === String(b.date).trim()
+        && String(a.role).trim() === String(b.role).trim()
+        && String(a.description).trim() === String(b.description).trim();
+}
 document.getElementById("btnImport").addEventListener("click", async function () {
+    await loadPortfolios();
     const current = getCurrentPortfolio();
     if (current === null) {
         showErrors("importErrors", ["กรุณาสร้างหรือเลือก Portfolio ของตัวเองก่อน Import"]);
@@ -586,22 +594,39 @@ document.getElementById("btnImport").addEventListener("click", async function ()
         for (let j = 0; j < itemErrors.length; j++) {
             errors.push("รายการที่ " + (i + 1) + ": " + itemErrors[j]);
         }
+        // ซ้ำกับ Item ที่มีอยู่แล้วใน Portfolio นี้ไหม
+        for (let j = 0; j < current.items.length; j++) {
+            if (isSameItem(items[i], current.items[j])) {
+                errors.push("รายการที่ " + (i + 1) + ": '" + items[i].title + "' มีอยู่ใน Portfolio นี้แล้ว (Import ซ้ำไม่ได้)");
+                break;
+            }
+        }
+        // ซ้ำกันเองใน JSON ที่วางมาไหม
+        for (let j = 0; j < i; j++) {
+            if (isSameItem(items[i], items[j])) {
+                errors.push("รายการที่ " + (i + 1) + ": ซ้ำกับรายการที่ " + (j + 1));
+                break;
+            }
+        }
     }
     if (errors.length > 0) {
         showErrors("importErrors", errors);
         return;
     }
 
-    // 4) ส่งไปบันทึกที่ Server ทีละรายการ
+    // 4) ส่งไปบันทึกที่ Server ทีละรายการ (ปิดปุ่มไว้ก่อน กันกดซ้ำระหว่างรอ)
+    const button = document.getElementById("btnImport");
+    button.disabled = true;
     for (let i = 0; i < items.length; i++) {
         const result = await sendItem(items[i], current.id);
         if (!result.ok) {
             showErrors("importErrors", result.data.errors);
             await loadPortfolios();
+            button.disabled = false;
             return;
         }
     }
-
+    button.disabled = false;
     showErrors("importErrors", []);
     document.getElementById("importJson").value = "";
     await loadPortfolios();

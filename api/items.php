@@ -56,6 +56,13 @@ $portfolioId = $_POST['portfolioId'] ?? '';
 $portfolios = readPortfolios();                     
 foreach ($portfolios as $i => $portfolio) {
     if ($portfolio['id'] === $portfolioId) {
+        foreach ($portfolio['items'] as $old) {
+            if ($old['title'] === $item['title'] && $old['type'] === $item['type']
+                && $old['date'] === $item['date'] && $old['role'] === $item['role']
+                && $old['description'] === $item['description']) {
+                sendJson(['errors' => ['"' . $item['title'] . '" มีอยู่ใน Portfolio นี้แล้ว (บันทึกซ้ำไม่ได้)']], 400);
+            }
+        }
         $portfolios[$i]['items'][] = $item;         
         writePortfolios($portfolios);               
         sendJson($item, 201);

@@ -109,7 +109,8 @@ bash tests/test-api.sh http://<Public IP> prod
 
 **ฝั่ง Host (เจ้าของบูธ)**
 1. ให้เพื่อนต่างกลุ่มทำ Challenge
-2. เมื่อทำสำเร็จ กดปุ่ม "สร้าง JSON ให้ผู้ทำกิจกรรม" ระบบสร้าง Portfolio Item JSON ในกล่องใต้ฟอร์ม (ไม่บันทึกลง Portfolio ของเรา) แล้วให้เพื่อนคัดลอกไป
+2. เมื่อทำสำเร็จ ให้เพื่อนกรอกฟอร์มอันที่ 3 เลือก Type challenge ใส่ Reflection + ลิ้งค์ Evidence
+3. กดปุ่ม "สร้าง JSON ให้ผู้ทำกิจกรรม" ระบบสร้าง Portfolio Item JSON ในกล่องใต้ฟอร์ม (ไม่บันทึกลง Portfolio ของเรา) แล้วให้เพื่อนคัดลอกไป
 
 **ฝั่ง Tester (ผู้ทำ Challenge)**
 1. วาง JSON ในช่อง Textarea ของเว็บกลุ่มตนเอง แล้วกด Import
